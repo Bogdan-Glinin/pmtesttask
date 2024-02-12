@@ -25,13 +25,13 @@ const SignUpForm = () => {
     login,
     password,
   });
-  const [checkUser, { data }] = useLazyQuery(CHECK_USER_EXIST, {
+  const [checkUser] = useLazyQuery(CHECK_USER_EXIST, {
     variables: {
       login,
     },
   });
 
-  const signUp = () => {
+  const signUp = async () => {
     try {
       validationSignUp.validateSync(
         {
@@ -42,25 +42,35 @@ const SignUpForm = () => {
         },
         { abortEarly: false }
       );
-      signUpUser();
-      checkUser();
+  
+      const { data: checkUserData } = await checkUser();
+
+      if (checkUserData?.allUsers?.length) {
+        showErrorNotification(["email занят"]);
+        return;
+      }
+  
+      await signUpUser();
+  
     } catch (error) {
       if (error instanceof ValidationError) {
         showErrorNotification(error.errors);
+      } else {
+        showErrorNotification(["Ошибка при запросе"]);
       }
     }
   };
+  
 
   useEffect(() => {
-    if (data?.allUsers?.length) {
-      showErrorNotification(["email занят"]);
-    } else if (signUpData?.error) {
+    if (signUpData?.error) {
       showErrorNotification(["Ошибка при запросе"]);
     } else if (signUpData?.createUser) {
+      // console.log(data);
       Cookies.set("userId", encryptData(signUpData.createUser.id));
       navigate("/profile", { replace: true });
     }
-  }, [signUpData, navigate, data]);
+  }, [signUpData, navigate]);
 
   const options = [
     {

@@ -32,14 +32,19 @@ const LibraryTable = () => {
   useEffect(() => {
     
     if (paginatedBooks) {
-    console.log(pagination);
-    console.log(paginatedBooks.allBooks);
       if(paginatedBooks.allBooks.length === 0 && pagination.current > 1){
         setPagination((prev) => ({
           ...prev,
           current: prev.current - 1,
         }));
       }
+      if(totalBookCount){
+        setPagination((prev) => ({
+          ...prev,
+          total: totalBookCount._allBooksMeta.count
+        }));
+      }
+      
       setTableData(paginatedBooks.allBooks);
     }
 

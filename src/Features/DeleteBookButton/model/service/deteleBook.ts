@@ -7,15 +7,16 @@ export const remove = () => {
       cache.modify({
         fields: {
           allBooks(currentBooks = []) {
-            if (currentBooks.length < Number(removeBook.id) + 1) {
-              return currentBooks.filter(
-                (book: any) => book.__ref !== `Book:${removeBook.id}`
+              const result = currentBooks.find(
+                (obj: any) => {
+                  let parts = obj.__ref.split(":");
+                  let number = parseInt(parts[1]);
+                  return number % 10 === 1 && number !== 1
+                }
               );
-            } else {
               return currentBooks
                 .filter((book: any) => book.__ref !== `Book:${removeBook.id}`)
-                .push(currentBooks[+removeBook.id + 1]);
-            }
+                .push(result);
           },
           _allBooksMeta(allBooks) {
             return allBooks.count - 1;
