@@ -5,6 +5,28 @@ import { Button, List } from "antd";
 import BackButton from "../../../Shared/ui/backButton/BackButton";
 import { getUser } from "../model/service/getUserData";
 import { decryptData } from "../../../Shared/lib/jwt/jsonwebtoken";
+import styled from "styled-components";
+
+const StyledContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const StyledHeader = styled.div`
+  display: flex;
+  align-items: center;
+  width: 500px;
+`;
+
+const SyledH3 = styled.h3`
+  text-align: center;
+  width: 80%;
+`;
+
+const StyledList = styled(List)`
+  width: 500px;
+`
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -43,8 +65,6 @@ const Profile = () => {
     ]);
   };
 
-  // let profileData: profileDataSchema[] = [];
-
   useEffect(() => {
     if (userId) {
       getUserData();
@@ -53,7 +73,6 @@ const Profile = () => {
     }
     if (data) {
       setData();
-      console.log(profileData);
     }
   }, [data]);
 
@@ -67,13 +86,12 @@ const Profile = () => {
 
   if (data) {
     return (
-      <div style={{display: 'flex', alignItems: 'center', flexDirection:'column'}}>
-        <div style={{display: 'flex', alignItems: 'center', width: 500}}>
-        <BackButton />
-        <h3 style={{textAlign: 'center', width: '80%'}}>Профиль</h3>
-        </div>
-        <List
-        style={{width: 500}}
+      <StyledContainer>
+        <StyledHeader>
+          <BackButton />
+          <SyledH3>Профиль</SyledH3>
+        </StyledHeader>
+        <StyledList
           itemLayout="horizontal"
           dataSource={profileData}
           renderItem={(item) => (
@@ -83,7 +101,7 @@ const Profile = () => {
           )}
         />
         <Button onClick={logout}>Выйти</Button>
-      </div>
+      </StyledContainer>
     );
   }
 

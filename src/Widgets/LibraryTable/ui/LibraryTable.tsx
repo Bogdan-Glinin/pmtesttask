@@ -5,6 +5,7 @@ import { columnsSchema } from "../model/types/types";
 import { UpdateBookButton } from "../../../Features/UpdateBookButton";
 import { DeteleBookButton } from "../../../Features/DeleteBookButton";
 import { SearchBook } from "../../../Features/SearchBook";
+import { BooksFields } from "../../../Entities/Book/model/types";
 
 const LibraryTable = () => {
   const [tableData, setTableData] = useState([]);
@@ -61,27 +62,27 @@ const LibraryTable = () => {
 
   const columns: columnsSchema[] = [
     {
-      title: "Id",
+      title: BooksFields.id,
       dataIndex: "id",
       key: "id",
     },
     {
-      title: "Название",
+      title: BooksFields.name,
       dataIndex: "name",
       key: "name",
     },
     {
-      title: "Автор",
+      title: BooksFields.author,
       dataIndex: "author",
       key: "author",
     },
     {
-      title: "Жанр",
+      title: BooksFields.genre,
       dataIndex: "genre",
       key: "genre",
     },
     {
-      title: "Действия",
+      title: BooksFields.actions,
       key: "action",
       render: (_: any, record: any) => (
         <Space size="middle">

@@ -6,6 +6,22 @@ import { showErrorNotification } from "../../../Shared/lib/notifications/Notific
 import Cookies from "js-cookie";
 import { authSomeUser } from "../model/service/authUser";
 import { encryptData } from "../../../Shared/lib/jwt/jsonwebtoken";
+import styled from "styled-components";
+
+const StyledContainer = styled(Content)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledForm = styled(Form)`
+  width: 400px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+`;
 
 const SignInform = () => {
   const navigate = useNavigate();
@@ -31,23 +47,8 @@ const SignInform = () => {
   }, [data, navigate]);
 
   return (
-    <Content
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Form
-        style={{
-          width: 400,
-          height: 120,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
+    <StyledContainer>
+      <StyledForm>
         <Input
           placeholder="Введите логин"
           value={login}
@@ -58,11 +59,11 @@ const SignInform = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button style={{ margin: "0 auto" }} onClick={signIn} type="primary">
+        <Button onClick={signIn} type="primary">
           Войти
         </Button>
-      </Form>
-    </Content>
+      </StyledForm>
+    </StyledContainer>
   );
 };
 

@@ -2,29 +2,38 @@ import { Button, Flex, Layout } from "antd";
 import { Content, Header } from "antd/es/layout/layout";
 import { LibraryTable } from "../../../Widgets/LibraryTable";
 import { AddBookButton } from "../../../Features/AddBookButton";
+import styled from "styled-components";
 import { memo } from "react";
 
 const LibraryPage = () => {
-  const headerStyle: React.CSSProperties = {
-    textAlign: "center",
-    color: "#fff",
-    height: 64,
-    paddingInline: 48,
-    lineHeight: "64px",
-    backgroundColor: "#4096ff",
-    width: "100%",
-    fontSize: 30,
-    display: 'flex',
-    justifyContent: 'space-around'
-  };
+  const StyledHeader = styled(Header)`
+    text-align: center;
+    color: #fff;
+    height: 64px;
+    padding-inline: 48px;
+    line-height: 64px;
+    background-color: #4096ff;
+    width: 100%;
+    font-size: 30px;
+    display: flex;
+    justify-content: space-around;
+  `;
+
+  const StyledButton = styled(Button)`
+    font-size: 30px;
+    color: #fff;
+    height: 64px;
+  `;
 
   return (
     <Flex gap="middle" wrap="wrap">
       <Layout>
-        <Header style={headerStyle}>
-            <div>Библиотека</div>
-            <Button style={{fontSize: 30, color: '#fff', height: 64}} type="text" href="/profile">Профиль</Button>
-        </Header>
+        <StyledHeader>
+          <div>Библиотека</div>
+          <StyledButton type="text" href="/profile">
+            Профиль
+          </StyledButton>
+        </StyledHeader>
         <Content>
           <LibraryTable />
           <AddBookButton />

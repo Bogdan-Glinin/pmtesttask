@@ -5,28 +5,35 @@ import { Radio } from "antd";
 import { memo, useState } from "react";
 import { SignInform } from "../../../Widgets/SignInForm";
 import { SignUpForm } from "../../../Widgets/SignUpForm";
+import styled from "styled-components";
+
+const StyledHeader = styled(Header)`
+text-align: center;
+color: #fff;
+height: 64px;
+padding-inline: 48px;
+line-height: 64px;
+background-color: #4096ff;
+width: 100%;
+font-size: 30px;
+display: flex;
+margin-bottom: 20px;
+align-items: center;
+`
+
+const StyledContainer = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+`
+
+const StyledLayout = styled(Layout)`
+  width: 500px;
+  background-color: #fff;
+`
 
 const Login = () => {
-  const headerStyle: React.CSSProperties = {
-    textAlign: "center",
-    color: "#fff",
-    height: 64,
-    paddingInline: 48,
-    lineHeight: "64px",
-    backgroundColor: "#4096ff",
-    width: "100%",
-    fontSize: 30,
-    display: "flex",
-    marginBottom: 20,
-    alignItems: "center",
-  };
-
-  const containerStyle: React.CSSProperties = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-  };
 
   const [type, setType] = useState("signIn");
 
@@ -42,9 +49,9 @@ const Login = () => {
   ];
 
   return (
-    <div style={containerStyle}>
-      <Layout style={{ width: 500, backgroundColor: "#fff" }}>
-        <Header style={headerStyle}>
+    <StyledContainer>
+      <StyledLayout>
+        <StyledHeader>
           <BackButton />
           <Radio.Group
             options={options}
@@ -52,10 +59,10 @@ const Login = () => {
             value={type}
             optionType="button"
           />
-        </Header>
+        </StyledHeader>
         {type === "signIn" ? <SignInform /> : <SignUpForm/>}
-      </Layout>
-    </div>
+      </StyledLayout>
+    </StyledContainer>
   );
 };
 

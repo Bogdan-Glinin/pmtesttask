@@ -1,6 +1,11 @@
 import Search from "antd/es/input/Search";
 import { useEffect, useState } from "react";
 import { searchBook } from "../model/service/searchBook";
+import styled from "styled-components";
+
+const StyledSearch = styled(Search)`
+  width: 500px;
+`
 
 const SearchBook = ({oldData, setTableData}: any) => {
   const [search, setSearch] = useState("");
@@ -18,7 +23,7 @@ const SearchBook = ({oldData, setTableData}: any) => {
   }, [searchData, setTableData]);
 
   return (
-    <Search
+    <StyledSearch
       value={search}
       onChange={(e) => {
         setSearch(e.target.value);
